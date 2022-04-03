@@ -32,8 +32,8 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot-desktop.jpg)
-![](./screenshot-mobile.jpg)
+![](./screenshot-desktop.png)
+![](./screenshot-mobile.png)
 
 ### Links
 
@@ -59,6 +59,9 @@ Users should be able to:
 
   const input = document.querySelector("input");
   input.addEventListener("input", callback);
+
+  ```
+
   ```
 
 - Creating, showing, and hiding DOM elements dynamically, as well as inserting children and adding styles to them with the help of the browser API
