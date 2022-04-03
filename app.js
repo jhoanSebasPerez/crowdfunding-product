@@ -12,13 +12,9 @@ const body = document.querySelector("body");
 
 const ctaButton = document.querySelector("#cta-button");
 const closeButton = document.querySelector("#icon-close");
-const btnNoReward = document.querySelector("#btn-no-reward");
 
 const bambooRadio = document.querySelector("#bamboo-radio");
-const bambooForm = document.querySelector("#bamboo-form");
-
 const blackRadio = document.querySelector("#black-radio");
-const blackForm = document.querySelector("#black-form");
 const noRewardRadio = document.querySelector("#no-reward-radio");
 
 const closeModal = () => {
@@ -38,19 +34,21 @@ const updateInfo = ({ moneyRaised, totalBackers, progressPercent }) => {
 
   moneyRaisedText.innerHTML = moneyRaised;
   totalBackersText.innerHTML = totalBackers;
-  progressPercentBar.style.width = `${progressPercent}%`;
+  progressPercentBar.style.width =
+    progressPercent >= 100 ? "100%" : `${progressPercent}%`;
 };
 
 let inputValue = null;
 let radio = null;
 let container = null;
 let enterPledge = null;
+let formEnterPledge = null;
 
 const cleanInputs = () => {
-  console.log({ radio, container, enterPledge });
   radio.checked = false;
   container.style.border = "1px solid rgba(0, 0, 0, 0.15)";
   enterPledge.style.display = "none";
+
   inputValue.value = inputValue.dataset.defaultValue;
 };
 
@@ -70,41 +68,42 @@ const showEnterPriceSection = (target) => {
 
   switch (idTarget) {
     case "bamboo-radio":
-      enterPledge = document.querySelector("#bamboo-enter");
-      enterPledge.style.display = "block";
+      enterPledge = showEnterPledge("bamboo", 25);
       break;
     case "black-radio":
-      enterPledge = document.querySelector("#black-enter");
-      enterPledge.style.display = "block";
+      enterPledge = showEnterPledge("black", 75);
       break;
     default:
-      enterPledge = document.querySelector("#no-reward");
-      enterPledge.style.display = "block";
+      enterPledge = showNoReward();
       break;
   }
 };
 
 const btnContinueSuccess = document.querySelector("#success-continue");
 btnContinueSuccess.addEventListener("click", () => {
+  console.log(inputValue.value);
   moneyRaised += parseFloat(inputValue.value);
   totalBackers += 1;
   progressPercent = (moneyRaised * 100) / targetMoney;
 
+  console.log({ moneyRaised, totalBackers, progressPercent });
+
   updateInfo({ moneyRaised, totalBackers, progressPercent });
+
+  if (moneyRaised === targetMoney) {
+    ctaButton.disabled = true;
+    ctaButton.classList.add("deactive");
+  }
+
   closeModal();
   cleanInputs();
 });
 
-const continueSuccess = (e, inputId) => {
+const continueSuccess = (e) => {
   e.preventDefault();
-  inputValue = document.querySelector(`#${inputId}`);
 
   closeModal();
   showModal("success");
-  /* modalContainer = document.querySelector("#success-container");
-  modalContainer.style.top = `${window.pageYOffset}px`;
-
-  modalContainer.classList.add("show-modal"); */
 };
 
 ctaButton.addEventListener("click", () => {
@@ -120,16 +119,6 @@ blackRadio.addEventListener("change", (e) => showEnterPriceSection(e.target));
 noRewardRadio.addEventListener("change", (e) =>
   showEnterPriceSection(e.target)
 );
-
-btnNoReward.addEventListener("click", () => {
-  closeModal();
-});
-
-bambooForm.addEventListener("submit", (e) =>
-  continueSuccess(e, "bamboo-input")
-);
-
-blackForm.addEventListener("submit", (e) => continueSuccess(e, "black-input"));
 
 /* 
     Mark as bookmarked
@@ -209,4 +198,120 @@ const showModal = (name) => {
     modalContainer.classList.add("menu-container");
     modal.classList.add("menu");
   }
+};
+
+const showNoReward = () => {
+  const container = document.querySelector("#no-reward-container");
+
+  const noRewardContainer = createElementAndSetAttributes(
+    "div",
+    {
+      id: "no-reward",
+    },
+    "enter-pledge-container"
+  );
+  container.appendChild(noRewardContainer);
+
+  const noReward = createElementAndSetAttributes("div", {}, "enter-pledge");
+  noReward.classList.add("no-reward");
+  noRewardContainer.appendChild(noReward);
+
+  const button = createElementAndSetAttributes("button", {}, "btn", "Continue");
+  button.addEventListener("click", () => {
+    closeModal();
+  });
+  noReward.appendChild(button);
+
+  return noRewardContainer;
+};
+
+const showEnterPledge = (name, initialPledge) => {
+  const container = document.querySelector(`#${name}-pledge`);
+
+  const containerEnter = createElementAndSetAttributes(
+    "div",
+    { id: `${name}-enter` },
+    "enter-pledge-container"
+  );
+  container.appendChild(containerEnter);
+
+  formEnterPledge = createElementAndSetAttributes(
+    "form",
+    {
+      id: `${name}-form`,
+    },
+    "enter-pledge"
+  );
+
+  formEnterPledge.addEventListener("submit", (e) => continueSuccess(e));
+
+  containerEnter.appendChild(formEnterPledge);
+
+  const label = createElementAndSetAttributes(
+    "label",
+    {
+      for: `${name}-input`,
+    },
+    "",
+    "Enter your pledge"
+  );
+  formEnterPledge.appendChild(label);
+
+  const optionsContainer = createElementAndSetAttributes(
+    "div",
+    {},
+    "enter-pledge__options"
+  );
+  formEnterPledge.appendChild(optionsContainer);
+
+  const enterPrice = createElementAndSetAttributes("div", {}, "enter-price");
+  optionsContainer.appendChild(enterPrice);
+
+  const paragraph = createElementAndSetAttributes("p", {}, "", "$");
+  enterPrice.appendChild(paragraph);
+
+  inputValue = createElementAndSetAttributes("input", {
+    id: `${name}-input`,
+    type: "number",
+    min: `${initialPledge}`,
+    value: `${initialPledge}`,
+    "data-default-value": `${initialPledge}`,
+  });
+  inputValue.addEventListener("input", (e) => {
+    inputValue.value = e.target.value;
+  });
+  enterPrice.appendChild(inputValue);
+
+  const button = createElementAndSetAttributes(
+    "button",
+    { type: "submit" },
+    "btn",
+    "Continue"
+  );
+  optionsContainer.appendChild(button);
+
+  return containerEnter;
+};
+
+const createElementAndSetAttributes = (
+  element,
+  attributes = {},
+  className = "",
+  content = ""
+) => {
+  const newElement = document.createElement(element);
+
+  if (className) {
+    newElement.classList.add(className);
+  }
+
+  if (Object.keys(attributes).length > 0) {
+    for (const prop in attributes) {
+      newElement.setAttribute(`${prop}`, attributes[prop]);
+    }
+  }
+
+  newElement.innerHTML = content;
+
+  return newElement;
 };

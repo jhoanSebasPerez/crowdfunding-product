@@ -173,7 +173,7 @@
                   <p class="price">0</p>
                   <p>left</p>
                 </div>
-                <button class="btn">Out of Stock</button>
+                <button class="btn deactive">Out of Stock</button>
               </div>
             </div>
           </article>
@@ -197,7 +197,7 @@
             in the world?
           </p>
 
-          <article class="pledge">
+          <article class="pledge" id="no-reward-container">
             <div class="pledge__content modal-pledge">
               <div class="content-title hover-state">
                 <p>Pledge with no reward</p>
@@ -211,14 +211,9 @@
                 product updates via email.
               </p>
             </div>
-            <div id="no-reward" class="enter-pledge-container">
-              <div class="enter-pledge no-reward">
-                <button id="btn-no-reward" class="btn">Continue</button>
-              </div>
-            </div>
           </article>
 
-          <article class="pledge">
+          <article class="pledge" id="bamboo-pledge">
             <div class="pledge__content modal-pledge">
               <div class="content-title hover-state">
                 <p>Bamboo Stand</p>
@@ -236,27 +231,9 @@
                 <p>left</p>
               </div>
             </div>
-            <div class="enter-pledge-container" id="bamboo-enter">
-              <form class="enter-pledge" id="bamboo-form">
-                <label for="pledge">Enter your pledge</label>
-                <div class="enter-pledge__options">
-                  <div class="enter-price">
-                    <p>$</p>
-                    <input
-                      id="bamboo-input"
-                      type="number"
-                      min="25"
-                      value="25"
-                      data-default-value="25"
-                    />
-                  </div>
-                  <button type="submit" class="btn">Continue</button>
-                </div>
-              </form>
-            </div>
           </article>
 
-          <article class="pledge">
+          <article class="pledge" id="black-pledge">
             <div class="pledge__content modal-pledge">
               <div class="content-title hover-state">
                 <p>Black Edition Stand</p>
@@ -273,24 +250,6 @@
                 <p class="price">64</p>
                 <p>left</p>
               </div>
-            </div>
-            <div class="enter-pledge-container" id="black-enter">
-              <form class="enter-pledge" id="black-form">
-                <label for="pledge">Enter your pledge</label>
-                <div class="enter-pledge__options">
-                  <div class="enter-price">
-                    <p>$</p>
-                    <input
-                      data-default-value="75"
-                      id="black-input"
-                      type="number"
-                      min="75"
-                      value="75"
-                    />
-                  </div>
-                  <button type="submit" class="btn continue">Continue</button>
-                </div>
-              </form>
             </div>
           </article>
 

@@ -311,8 +311,9 @@ body {
   opacity: 0.5;
 }
 
-.pledge.deactive .btn {
+.btn.deactive {
   background-color: var(--dark-gray);
+  cursor: not-allowed;
 }
 
 .hidden-modal {
@@ -445,7 +446,6 @@ body {
 
 .enter-pledge-container {
   border-top: 1px solid rgba(0, 0, 0, 0.15);
-  display: none;
 }
 
 .enter-pledge {
