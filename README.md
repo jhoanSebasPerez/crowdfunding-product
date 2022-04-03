@@ -55,36 +55,29 @@ Users should be able to:
 
 - Get elements from the DOM and add an Event handler, events vary for each type of element.
 
-      ```js
-
+  ```js
   const input = document.querySelector("input");
   input.addEventListener("input", callback);
-
-  ```
-
   ```
 
 - Creating, showing, and hiding DOM elements dynamically, as well as inserting children and adding styles to them with the help of the browser API
 
-      ```js
-
+  ```js
   const container = document.createElement("div");
   container.classList.add("class-style");
   container.appendChild(elementChild);
 
-      //to show and hidden element
-      container.style.display ="block";
-      container.style.display = "none";
-      ```
+  //to show and hidden element
+  container.style.display = "block";
+  container.style.display = "none";
+  ```
 
   -Increasing the progress of the bar by combining Javascript and element width with percentage
 
-````js
-progressPercentBar.style.width =
-progressPercent >= 100 ? "100%" : `${progressPercent}%`;
-    ```
-
-
+  ```js
+  progressPercentBar.style.width =
+    progressPercent >= 100 ? "100%" : `${progressPercent}%`;
+  ```
 
 ### Continued development
 
@@ -94,10 +87,12 @@ Employ a component-oriented way of programming, making use of libraries such as 
 
 - [MDN Web Docs](https://developer.mozilla.org/en-US/) - Learn the browser API and methods for traversing arrays and JavaScript language syntax, and how to interact with DOM elements
 
-
 ## Author
 
 - GitHub - [@jhoanSebasPerez](https://github.com/jhoanSebasPerez)
 - Frontend Mentor - [@jhoanSebasPerez](https://www.frontendmentor.io/profile/jhoanSebasPerez)
 - Twitter - [@JhoanPerezA0](https://twitter.com/JhoanPerezA0)
-````
+
+```
+
+```
